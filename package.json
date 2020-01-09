@@ -1,7 +1,7 @@
 {
   "name": "react-native-check-location-before-action",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "You might want to do something on React Native that require location permission, therefore this library helps you to handle all possible scenario (location off, location denied, location blocked, or location granted), you just to the library onSuccess callback. Easy right?",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,11 +10,18 @@
     "type": "git",
     "url": "git+https://github.com/fattahmuhyiddeen/react-native-check-location-before-action.git"
   },
-  "keywords": [],
+  "keywords": [
+    "location",
+    "permission"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fattahmuhyiddeen/react-native-check-location-before-action/issues"
   },
-  "homepage": "https://github.com/fattahmuhyiddeen/react-native-check-location-before-action#readme"
+  "homepage": "https://github.com/fattahmuhyiddeen/react-native-check-location-before-action#readme",
+  "dependencies": {
+    "react-native-permissions": "^2.0.8",
+    "react-native-android-location-enabler": "^1.2.0"
+  }
 }
