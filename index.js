@@ -8,22 +8,12 @@ const isIos = Platform.OS === 'ios';
 export default (onSuccess = () => null) => {
   const permission = PERMISSIONS[OS][isIos ? 'LOCATION_WHEN_IN_USE' : 'ACCESS_COARSE_LOCATION'];
   check(permission).then(result => {
-    if (result === RESULTS.GRANTED) {
-      onSuccess();
-      return;
-    }
     if (!isIos) {
-      if (result === RESULTS.UNAVAILABLE || result === RESULTS.DENIED || result === RESULTS.BLOCKED) {
-        RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
-          .then(data => {
-            if (data === 'already-enabled' || data === 'enabled') {
-              onSuccess();
-            }
-          });
-      }
-      return;
-    }
-    if (result === RESULTS.UNAVAILABLE) {
+      RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
+        .then(data => (data === 'already-enabled' || data === 'enabled') && onSuccess());
+    } else if (result === RESULTS.GRANTED) {
+      onSuccess();
+    } else if (result === RESULTS.UNAVAILABLE) {
       Alert.alert('Sorry', 'You need to turn on Location Service', [
         { text: 'Cancel' },
         { text: 'Turn On Location', onPress: Linking.openSettings },
