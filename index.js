@@ -8,9 +8,14 @@ const isIos = Platform.OS === 'ios';
 export default (onSuccess = () => null) => {
   const permission = PERMISSIONS[OS][isIos ? 'LOCATION_WHEN_IN_USE' : 'ACCESS_COARSE_LOCATION'];
   check(permission).then(result => {
-    if (!isIos) {
+    if (result === RESULTS.DENIED) {
+      request(permission).then(data => data === RESULTS.GRANTED && onSuccess());
+    } else if (!isIos) {
       RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
-        .then(data => (data === 'already-enabled' || data === 'enabled') && onSuccess());
+        .then(data => {
+          alert(data)
+            (data === 'already-enabled' || data === 'enabled') && onSuccess();
+        });
     } else if (result === RESULTS.GRANTED) {
       onSuccess();
     } else if (result === RESULTS.UNAVAILABLE) {
@@ -23,8 +28,6 @@ export default (onSuccess = () => null) => {
         { text: 'Cancel' },
         { text: 'Allow Location Permission', onPress: Linking.openSettings },
       ]);
-    } else if (result === RESULTS.DENIED) {
-      request(permission).then(data => data === RESULTS.GRANTED && onSuccess());
     }
   });
 };

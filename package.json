@@ -1,6 +1,6 @@
 {
   "name": "react-native-check-location-before-action",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "You might want to do something on React Native that require location permission, therefore this library helps you to handle all possible scenario (location off, location denied, location blocked, or location granted), you just to the library onSuccess callback. Easy right?",
   "main": "index.js",
   "scripts": {
