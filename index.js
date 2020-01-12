@@ -12,10 +12,7 @@ export default (onSuccess = () => null) => {
       request(permission).then(data => data === RESULTS.GRANTED && onSuccess());
     } else if (!isIos) {
       RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
-        .then(data => {
-          alert(data)
-            (data === 'already-enabled' || data === 'enabled') && onSuccess();
-        });
+        .then(data => (data === 'already-enabled' || data === 'enabled') && onSuccess());
     } else if (result === RESULTS.GRANTED) {
       onSuccess();
     } else if (result === RESULTS.UNAVAILABLE) {
