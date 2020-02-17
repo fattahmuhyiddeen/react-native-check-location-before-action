@@ -6,7 +6,7 @@ const OS = Platform.OS.toUpperCase();
 const isIos = Platform.OS === 'ios';
 
 export default (onSuccess = () => null) => {
-  const permission = PERMISSIONS[OS][isIos ? 'LOCATION_WHEN_IN_USE' : 'ACCESS_COARSE_LOCATION'];
+  const permission = PERMISSIONS[OS][isIos ? 'LOCATION_WHEN_IN_USE' : 'ACCESS_FINE_LOCATION'];
   check(permission).then(result => {
     if (result === RESULTS.DENIED) {
       request(permission).then(data => data === RESULTS.GRANTED && onSuccess());
